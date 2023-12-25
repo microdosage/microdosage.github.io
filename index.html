@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All I want for christmas is YOOOOU</title>
+  <title>All I want for Christmas is YOOOOU</title>
   <style>
     body {
       margin: 0;
@@ -57,6 +57,13 @@
         if (currentImageIndex < images.length) {
           imageElement.src = images[currentImageIndex];
           imageElement.style.display = 'block';
+
+          // Desabilita o evento de clique quando atingir 'image12.png'
+          if (currentImageIndex === images.length - 1) {
+            document.removeEventListener('click', showNextImage);
+            imageElement.removeEventListener('touchstart', touchHandler);
+          }
+
           currentImageIndex++;
         } else {
           // Reset to the first image if we've reached the end of the list
@@ -66,15 +73,17 @@
         }
       }
 
+      function touchHandler(event) {
+        event.preventDefault(); // Impede o comportamento padrão de toque
+        showNextImage();
+      }
+
       showNextImage(); // Show the first image on page load
 
       document.addEventListener('click', showNextImage);
 
       // Adiciona um evento de toque para dispositivos móveis
-      imageElement.addEventListener('touchstart', function(event) {
-        event.preventDefault(); // Impede o comportamento padrão de toque
-        showNextImage();
-      });
+      imageElement.addEventListener('touchstart', touchHandler);
 
       // Define a propriedade draggable para false
       imageElement.draggable = false;
