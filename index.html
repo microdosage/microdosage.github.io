@@ -10,6 +10,7 @@
       overflow: hidden;
       cursor: pointer;
       background-color: black;
+      user-select: none; /* Impede a seleção de texto em desktops */
     }
 
     img {
@@ -19,6 +20,13 @@
       display: none;
       transition: opacity 0.5s ease-in-out;
       image-rendering: pixelated;
+    }
+
+    @media only screen and (max-width: 600px) {
+      /* Adiciona regras específicas para dispositivos móveis */
+      body {
+        user-select: none; /* Impede a seleção de texto em dispositivos móveis */
+      }
     }
   </style>
 </head>
@@ -61,6 +69,15 @@
       showNextImage(); // Show the first image on page load
 
       document.addEventListener('click', showNextImage);
+
+      // Adiciona um evento de toque para dispositivos móveis
+      imageElement.addEventListener('touchstart', function(event) {
+        event.preventDefault(); // Impede o comportamento padrão de toque
+        showNextImage();
+      });
+
+      // Define a propriedade draggable para false
+      imageElement.draggable = false;
     });
   </script>
 </body>
