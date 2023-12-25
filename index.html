@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeria de Imagens</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      cursor: pointer;
+      background-color: black;
+    }
+
+    img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+      display: none;
+      transition: opacity 0.5s ease-in-out;
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const images = [
+      'imgs/image01.png',
+      'imgs/image02.png',
+      'imgs/image03.png',
+      'imgs/image04.png',
+      'imgs/image05.png',
+      'imgs/image06.png',
+      'imgs/image07.png',
+      'imgs/image08.png',
+      'imgs/image09.png',
+      'imgs/image10.png',
+      'imgs/image11.png',
+      'imgs/image12.png'
+    ];
+
+    let currentImageIndex = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const imageElement = document.createElement('img');
+      document.body.appendChild(imageElement);
+
+      function showNextImage() {
+        if (currentImageIndex < images.length) {
+          imageElement.src = images[currentImageIndex];
+          imageElement.style.display = 'block';
+          currentImageIndex++;
+        } else {
+          // Reset to the first image if we've reached the end of the list
+          currentImageIndex = 0;
+          imageElement.src = images[currentImageIndex];
+          imageElement.style.display = 'block';
+        }
+      }
+
+      showNextImage(); // Show the first image on page load
+
+      document.addEventListener('click', showNextImage);
+    });
+  </script>
+</body>
+</html>
